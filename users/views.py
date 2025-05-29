@@ -5,10 +5,10 @@ from django.contrib.auth import login, authenticate, logout
 
 def register(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('posts:home')
 
     if request.user.is_authenticated and request.user.is_verified:
-        return redirect('home')
+        return redirect('posts:home')
     
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -16,7 +16,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home') 
+            return redirect('posts:home') 
         
     else:
         form = RegisterForm()
@@ -25,7 +25,7 @@ def register(request):
 
 def user_login(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('posts:home')
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -36,7 +36,7 @@ def user_login(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('posts:home')
             else:
                 form.add_error(None, 'Invalid Email or password')
     else:
@@ -46,8 +46,6 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('register')
+    return redirect('users:register')
 
-def home(request):
-    return render(request, 'main/home.html')
 
