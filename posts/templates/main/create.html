@@ -1,7 +1,7 @@
+{% load static %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <h1 class="mb-4 text-center text-primary">Create Post</h1>
-{% load static %}
 
 <form method="POST" enctype="multipart/form-data" class="mx-auto p-4 border rounded shadow-sm" style="max-width: 500px; background: #f8f9fa;">
     {% csrf_token %}
@@ -12,11 +12,18 @@
 
     <div class="mb-4 text-center">
         <p><strong class="text-secondary">Post Image</strong></p>
-        <label for="imageInput" style="cursor: pointer; display: inline-block; transition: border-color 0.3s ease;">
-            <img src="{% static 'images/default.jpg' %}" alt="Default Post Image"
-                 class="img-thumbnail"
-                 style="max-width: 200px; height: auto; border: 3px dashed #6c757d; padding: 6px; border-radius: 12px;">
+
+        <label for="imageInput" style="cursor: pointer; display: inline-block;">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="img-thumbnail rounded-circle shadow" 
+                    style="width: 200px; height: 200px; object-fit: cover !important;">
+            {% else %}
+                <img src="{% static 'images/default.jpg' %}" alt="Default Post Image"
+                    class="img-thumbnail"
+                    style="width: 200px; height: 200px; object-fit: contain; display: block; margin: auto; border: 2px dashed #6c757d; padding: 6px; border-radius: 12px;">
+            {% endif %}
         </label>
+
         <input type="file" id="imageInput" name="image" accept="image/*" class="d-none">
     </div>
 

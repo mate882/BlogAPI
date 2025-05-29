@@ -3,6 +3,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
 <div class="text-end mt-2 me-5">
     {% if user.is_authenticated %}
         <a class="btn btn-danger" href="{% url 'users:logout' %}">Logout</a>
@@ -13,15 +14,38 @@
     {% endif %}
 </div>
 
+
+
 {% for post in posts %}
     <div class="container my-4 p-4 border rounded shadow-sm" style="background: #f8f9fa;">
         <h3>{{ post.title }}</h3>
         <p>{{ post.content }}</p>
+
         {% if post.image %}
-            <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid mb-3" style="max-width: 100%; height: auto; border-radius: 12px;">
+            <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid mb-3" style="width: 600px; height: 500px; border-radius: 12px;">
         {% else %}
-            <img src="{% static 'images/default.jpg' %}" alt="Default Post Image" class="img-fluid mb-3" style="max-width: 100%; height: auto; border-radius: 12px;">
+            <img src="{% static 'images/default.jpg' %}" alt="Default Post Image" class="img-fluid mb-3" style="width: 600px; height: 500px; border-radius: 12px;">
         {% endif %}
+
+        {% if request.user == post.author %}
+            <a href="{% url 'posts:update' post.id %}" class="edit-post-link btn btn-sm btn-outline-primary">Edit Post</a>
+            <a href="{% url 'posts:delete' post.id %}" class="delete-post-link btn btn-sm btn-outline-danger">Delete Post</a>
+        {% endif %}
+
+
+
+        <form action="{% url 'posts:like_post' post.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">
+                {% if user in post.likes.all %}                    
+                    ❤️ Unlike
+                {% else %}
+                    🤍 Like
+                {% endif %}
+                ({{ post.number_of_likes }})
+            </button>
+        </form>
+
     </div>
 {% endfor %}
 
