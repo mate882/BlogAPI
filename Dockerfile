@@ -24,4 +24,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Default command
-CMD ["gunicorn", "Auth.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "Blog.wsgi:application", "--bind", "0.0.0.0:8000"]
