@@ -2,7 +2,6 @@
 services:
   db:
     image: mysql:8.0
-    container_name: mysql_db_v2
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 11080310       
@@ -14,7 +13,6 @@ services:
 
   web:
     build: .
-    container_name: django_app_v2
     command: gunicorn Blog.wsgi:application --bind 0.0.0.0:8000 --timeout 60 --workers 3
     volumes:
       - .:/app
