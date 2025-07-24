@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +27,12 @@ SECRET_KEY = 'django-insecure-4uqc0ny14m=mobm^*jo)02_*_q-wdo$qs%zex66tlgs8nh-^$-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = [
+    '.onrender.com',
+    '127.0.0.1',
+    'localhost',
+    os.getenv('RENDER_EXTERNAL_HOSTNAME'),
+]
 
 # Application definition
 
@@ -76,17 +82,13 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
-        'USER': 'root',
-        'PASSWORD': '11080310',
-        'HOST': 'db',
-        'PORT': '3306',
-    }
-}
 
+DATABASES = {
+    'default': dj_database_url.config(
+        default='mysql://root:11080310@db:3306/blog',
+        conn_max_age=600,
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
