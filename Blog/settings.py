@@ -116,6 +116,19 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_URL = '/static/'
+
+# Since your static files are inside 'posts/static/', include that:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Blog/static'),
+]
+
+# Where collectstatic will collect to for production:
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 USE_TZ = True
 
 AUTH_USER_MODEL = 'users.CustomUser'

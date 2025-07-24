@@ -15,11 +15,11 @@ services:
   web:
     build: .
     container_name: django_app_v2
-    command: gunicorn Blog.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn Blog.wsgi:application --bind 0.0.0.0:8000 --timeout 60 --workers 3
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "8002:8000"
     depends_on:
       - db
     environment:

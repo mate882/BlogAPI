@@ -24,7 +24,7 @@ def update_post(request, post_id):
     if request.method == 'POST':
         post.title = request.POST.get('title')
         post.content = request.POST.get('content')
-        post.image = request.FILES.get('image', post.image)  # Keep the old image if no new one is uploaded
+        post.image = request.FILES.get('image', post.image) 
         post.save()
         return redirect('posts:home')
     return render(request, 'main/update.html', {'post': post})

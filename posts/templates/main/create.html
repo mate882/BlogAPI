@@ -13,6 +13,8 @@
     <div class="mb-4 text-center">
         <p><strong class="text-secondary">Post Image</strong></p>
 
+        <p>Image won't be shown here but will be in post</p>
+
         <label for="imageInput" style="cursor: pointer; display: inline-block;">
             {% if post.image %}
                 <img src="{{ post.image.url }}" class="img-thumbnail rounded-circle shadow" 
@@ -29,3 +31,5 @@
 
     <button type="submit" class="btn btn-success w-100 fw-bold shadow-sm" style="font-size: 1.2rem;">Create Post</button>
 </form>
+
+
