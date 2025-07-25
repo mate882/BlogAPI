@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='mysql://root:11080310@db:3306/blog',
+        default='mysql://root:11080310@localhost:3306/blog',
         conn_max_age=600,
     )
 }
