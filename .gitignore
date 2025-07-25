@@ -13,9 +13,7 @@ __pycache__/
 *.pkl
 *.log
 
-# === Django ===
-*.sqlite3
-db.sqlite3
+# === Django ===]
 media/
 staticfiles/
 .env
